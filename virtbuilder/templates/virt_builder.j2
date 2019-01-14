@@ -1,0 +1,43 @@
+virt-builder "{{ d.os }}-{{ d.version -}}"
+
+{%- if d.output %} \
+            --output "{{ d.output }}"
+{%- endif %}
+
+{%- if d.arch %} \
+            --arch "{{ d.arch }}"
+{%- endif -%}
+
+{%- if d.format %} \
+            --format "{{ d.format }}"
+{%- endif -%}
+
+{%- if d.size %} \
+            --size "{{ d.size }}"
+{%- endif -%}
+
+{%- if d['root-password'] %} \
+            --root-password "{{ d['root-password'] }}"
+{%- endif -%}
+
+{%- if d.hostname %} \
+            --hostname "{{ d.hostname }}"
+{%- endif -%}
+
+{%- if d.timezone %} \
+            --timezone "{{ d.timezone }}"
+{%- endif -%}
+
+{% for key, values in d.flags.items() -%}
+    {%- if values %} \
+            --{{ key }}
+    {%- endif -%}
+{%- endfor -%}
+
+{% for key, values in d.provisioning.items() -%}
+    {% if values %}
+        {%- for value in values %} \
+            --{{ key }} "{{ value }}"
+        {%- endfor -%}
+    {%- endif -%}
+{%- endfor -%}
