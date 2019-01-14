@@ -113,3 +113,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Images
+*.iso
+*.qcow2
+*.img
