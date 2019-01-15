@@ -4,8 +4,8 @@ import subprocess
 from . import env
 
 
-def generate_virt_builder_command(definition):
-    template = env.get_template("virt_builder.j2")
+def generate_command_from_template(template, definition):
+    template = env.get_template(template)
     out = template.render(d=definition)
     return out
 

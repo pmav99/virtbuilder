@@ -31,17 +31,19 @@ class BuildCommand(Command):
             "configuration": And(
                 str, Use(pathlib.Path), lambda p: p.exists(), Use(open_json)
             ),
-            Optional("preview"): And(bool),
+            "preview": And(bool),
         }
     )
 
     def handle(self):
         params = self.parse_parameters()
-        cmd = api.generate_virt_builder_command(params.configuration)
-        for line in cmd.splitlines():
-            self.line(line)
         self.line("")
+        cmd = api.generate_command_from_template(
+            "virt_builder.j2", params.configuration
+        )
+        self.line(cmd)
         if not params.preview:
+            self.line("")
             return api.execute_cmd(cmd)
 
 
