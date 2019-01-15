@@ -1,5 +1,4 @@
 from cleo import Command as BaseCommand
-import munch
 import schema
 
 
@@ -21,4 +20,4 @@ class Command(BaseCommand):
         params = self.get_parameters()
         if validate and isinstance(self.schema, schema.Schema):
             params = self.schema.validate(params)
-        return munch.munchify(params)
+        return params
