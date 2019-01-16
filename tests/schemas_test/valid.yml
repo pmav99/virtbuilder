@@ -8,7 +8,7 @@ build:
   format: 'qcow2'
   arch: 'x86_64'
   no-sync: false
-  memsize: '4G'
+  memsize: 4000
   smp: 4
 
 config:
