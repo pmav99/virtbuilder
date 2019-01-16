@@ -3,6 +3,7 @@ import pathlib
 from schema import Schema, And, Or, Use, SchemaError
 
 from ..command import Command
+from ...schemas import definition_schema
 from ...utils import load_yaml
 from ... import api
 
@@ -16,14 +17,14 @@ class ValidateCommand(Command):
     Validate the provided yaml file.
 
     validate
-        {image-config : The yaml file with the image configuration}
+        {definition : The yaml file with the image configuration}
     """
 
     help = " ".join(_VALIDATE_HELP.splitlines()).strip()
 
     schema = Schema(
         {
-            "image-config": And(
+            "definition": And(
                 str, Use(pathlib.Path), lambda p: p.exists(), Use(load_yaml)
             )
         }
@@ -31,10 +32,5 @@ class ValidateCommand(Command):
 
     def handle(self):
         params = self.parse_parameters()
-        try:
-            api.validate_input(params["image-config"])
-        except SchemaError as exc:
-            self.line("\n".join(exc.autos))
-            return 1
-        else:
-            self.line("OK!")
+        definition_schema.validate(params["definition"])
+        self.line("OK!")

@@ -19,7 +19,7 @@ definition_schema = Schema(
             "format": And(str, len, OneOf("raw", "qcow2")),
             Optional("arch"): And(str, len),
             Optional("no-sync"): And(bool),
-            Optional("memsize"): And(str, len),
+            Optional("memsize"): And(int, lambda n: n > 1000),
             Optional("smp", default=4): And(int, lambda n: n > 1),
             # TODO Add support for --attach and --attach-format
         },
@@ -55,7 +55,7 @@ definition_schema = Schema(
                     {"touch": And(str, len)},
                     {"touch": And(str, len)},
                     {"truncate-recursive": And(str, len)},
-                    {"uninstall": And(str, len)},
+                    {"uninstall": [And(str, len)]},
                     {"upload": And(str, len)},
                     {"write": And(str, len)},
                 )

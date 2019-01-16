@@ -10,6 +10,7 @@ def generate_command(data, singleline=False):
         cmd = " ".join(parts)
     else:
         cmd = " \\\n           ".join(parts)
+    return cmd
 
 
 def _generate_command_parts(data):
@@ -22,8 +23,9 @@ def _generate_command_parts(data):
         if key in {"os", "version"}:
             continue
         # no-sync is a boolean flag and not a key-value pair
-        if key == "no-sync" and value is True:
-            parts.append(f"--{key}")
+        if key == "no-sync":
+            if value is True:
+                parts.append(f"--{key}")
         else:
             parts.append(f'--{key} "{value}"')
 
@@ -31,8 +33,9 @@ def _generate_command_parts(data):
         if key == "provision":
             continue
         # update & selinux-relabel are boolean flags and not key-value pairs
-        elif key in {"update", "selinux-relabel"} and value is True:
-            parts.append(f"--{key}")
+        elif key in {"update", "selinux-relabel"}:
+            if value is True:
+                parts.append(f"--{key}")
         else:
             parts.append(f'--{key} "{value}"')
 
