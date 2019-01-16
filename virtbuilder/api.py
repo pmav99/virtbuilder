@@ -1,7 +1,13 @@
 import shlex
 import subprocess
 
+from .schemas import virt_builder_schema
 from . import env
+
+
+def validate_input(input_yaml):
+    virt_builder_schema.validate(input_yaml)
+    pass
 
 
 def generate_command_from_template(template, definition):
@@ -32,3 +38,8 @@ def upload_volume(uri, pool, volume_name, filename):
     cmd = f"virsh --connect {uri} vol-upload --vol {volume_name} --file {filename} --pool {pool}"
     print(cmd)
     return execute_cmd(cmd)
+
+
+def create_from_volume(uri, pool, volume):
+    pass
+    # vol - An existing libvirt storage volume to use. This is specified as ’poolname/volname’.
