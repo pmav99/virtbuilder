@@ -9,7 +9,7 @@ def OneOf(*unique):
     return one_of
 
 
-virt_builder_schema = Schema(
+definition_schema = Schema(
     {
         "build": {
             "os": And(Use(str), len),

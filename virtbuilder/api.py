@@ -1,19 +1,54 @@
 import shlex
 import subprocess
 
-from .schemas import virt_builder_schema
+from .schemas import definition_schema
 from . import env
 
 
 def validate_input(input_yaml):
-    virt_builder_schema.validate(input_yaml)
-    pass
+    return definition_schema.validate(input_yaml)
 
 
-def generate_command_from_template(template, definition):
-    template = env.get_template(template)
-    out = template.render(d=definition)
-    return out
+def generate_command(data, singleline=False):
+    parts = _generate_command_parts(data)
+    if singleline:
+        cmd = " ".join(parts)
+    else:
+        cmd = " \\\n           ".join(parts)
+
+
+def _generate_command_parts(data):
+    build = data["build"]
+    config = data["config"]
+    parts = [f"virt-builder {build['os']}-{build['version']}"]
+
+    # build time options
+    for key, value in build.items():
+        if key in {"os", "version"}:
+            continue
+        # no-sync is a boolean flag and not a key-value pair
+        if key == "no-sync" and value is True:
+            parts.append(f"--{key}")
+        else:
+            parts.append(f'--{key} "{value}"')
+
+    for key, value in config.items():
+        if key == "provision":
+            continue
+        # update & selinux-relabel are boolean flags and not key-value pairs
+        elif key in {"update", "selinux-relabel"} and value is True:
+            parts.append(f"--{key}")
+        else:
+            parts.append(f'--{key} "{value}"')
+
+    for item in config["provision"]:
+        for key, value in item.items():
+            # install & uninstall are comma separated lists
+            if key in {"install", "uninstall"}:
+                parts.append(f'--{key} "{",".join(value)}"')
+            else:
+                parts.append(f'--{key} "{value}"')
+    return parts
 
 
 def execute_cmd(cmd):
