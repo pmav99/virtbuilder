@@ -2,11 +2,6 @@ import shlex
 import subprocess
 
 from .schemas import definition_schema
-from . import env
-
-
-def validate_input(input_yaml):
-    return definition_schema.validate(input_yaml)
 
 
 def generate_command(data, singleline=False):
