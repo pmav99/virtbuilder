@@ -1,0 +1,41 @@
+---
+
+build:
+  os: 'ubuntu'
+  version: '18.04'
+  output: 'my-image.qcow2'
+  size: '20G'
+  format: 'qcow2'
+  arch: 'x86_64'
+  no-sync: false
+  memsize: '4G'
+  smp: 4
+
+config:
+  update: true
+  selinux-relabel: false
+  hostname: 'kmaster'
+  timezone: 'Europe/Athens'
+  password-crypto: 'sha512'
+  provision:
+    - append-line: '/etc/hosts:'
+    - append-line: '/etc/hosts:10.0.0.1 foo'
+    - chmod: '0700:/path/p1'
+    - chmod: '0777:/path/p2'
+    - copy: 'remote_src:remote_dest'
+    - copy-in: 'local_src:remote_dest'
+    - delete: '/path/deleteme'
+    - firstboot-command: 'echo 1'
+    - firstboot-command: 'echo 2'
+    - link: 'target1:link1'
+    - link: 'target2:link2'
+    - mkdir: '/path/makeme1'
+    - mkdir: '/path/makeme2'
+    - move: 'remote_src:remote_dest'
+    - password: 'root:/'
+    - ssh-inject: 'root:file:$HOME/.ssh/id_rsa.pub'
+    - ssh-inject: 'pmav99:file:$HOME/.ssh/id_rsa.pub'
+    - install:
+        - ansible
+        - apt
+        - wget

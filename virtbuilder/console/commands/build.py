@@ -3,7 +3,7 @@ import pathlib
 from schema import Schema, And, Or, Use, Optional, SchemaError
 
 from ..command import Command
-from ...utils import open_json
+from ...utils import load_yaml
 from ... import api
 
 _BUILD_HELP = """\
@@ -20,7 +20,7 @@ class BuildCommand(Command):
     Build the image based on the provided configuration
 
     build
-        {configuration : The json file with the image configuration}
+        {config : The yaml file with the image configuration}
         {--preview : If set, virt-builder will not be executed}
     """
 
@@ -29,7 +29,7 @@ class BuildCommand(Command):
     schema = Schema(
         {
             "configuration": And(
-                str, Use(pathlib.Path), lambda p: p.exists(), Use(open_json)
+                str, Use(pathlib.Path), lambda p: p.exists(), Use(load_yaml)
             ),
             "preview": And(bool),
         }

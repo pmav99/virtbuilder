@@ -3,7 +3,6 @@ import pathlib
 from schema import Schema, And, Or, Use, Optional, SchemaError
 
 from ..command import Command
-from ...utils import open_json
 from ... import api
 
 _UPLOAD_HELP = """\

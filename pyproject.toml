@@ -9,6 +9,7 @@ python = "^3.6"
 jinja2 = "^2.10"
 schema = "^0.6.8"
 cleo = "^0.7.2"
+"ruamel.yaml" = "^0.15.85"
 
 [tool.poetry.dev-dependencies]
 pytest = "^4.0"
