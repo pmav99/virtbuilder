@@ -1,0 +1,18 @@
+---
+
+build:
+  os: 'ubuntu'
+  version: '18.04'
+  output: '/tmp/simple.qcow2'
+  size: '6G'
+  format: 'qcow2'
+  arch: 'x86_64'
+  no-sync: false
+  memsize: 4000
+  smp: 4
+  config:
+    update: false
+    selinux-relabel: false
+    hostname: 'simple'
+    timezone: 'Europe/Athens'
+    password-crypto: 'sha512'
