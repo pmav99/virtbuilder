@@ -5,15 +5,15 @@ from virtbuilder.schemas import definition_schema
 from virtbuilder.utils import load_yaml
 
 
-def test_valid_schema(yaml_loader):
-    data = yaml_loader("valid.yml")
+def test_valid_schema(load_fixture):
+    data = load_fixture("valid.yml")
     definition_schema.validate(data)
 
 
 class TestBuildSchema(object):
     @pytest.mark.parametrize("required_key", ["os", "version", "size", "format"])
-    def test_required_keys(self, yaml_loader, required_key):
-        data = yaml_loader("valid.yml")
+    def test_required_keys(self, load_fixture, required_key):
+        data = load_fixture("valid.yml")
         definition_schema.validate(data)
         del data["build"][required_key]
         with pytest.raises(SchemaError) as exc:
@@ -23,8 +23,8 @@ class TestBuildSchema(object):
     @pytest.mark.parametrize(
         "optional_key", ["output", "arch", "no-sync", "memsize", "smp"]
     )
-    def test_optional_keys(self, yaml_loader, optional_key):
-        data = yaml_loader("valid.yml")
+    def test_optional_keys(self, load_fixture, optional_key):
+        data = load_fixture("valid.yml")
         definition_schema.validate(data)
         del data["build"][optional_key]
         assert definition_schema.validate(data)
@@ -42,16 +42,16 @@ class TestConfigSchema(object):
             "provision",
         ],
     )
-    def test_optional_keys(self, yaml_loader, optional_key):
-        data = yaml_loader("valid.yml")
+    def test_optional_keys(self, load_fixture, optional_key):
+        data = load_fixture("valid.yml")
         definition_schema.validate(data)
         del data["build"]["config"][optional_key]
         assert definition_schema.validate(data)
 
 
 class TestProvisionSchema(object):
-    def test_provision_accepts_duplicate_keys(self, yaml_loader):
-        data = yaml_loader("valid.yml")
+    def test_provision_accepts_duplicate_keys(self, load_fixture):
+        data = load_fixture("valid.yml")
         data["build"]["config"]["provision"] = [
             {"append-line": "/etc/hosts:127.0.0.1 localhost"},
             {"append-line": "/etc/hosts:127.0.1.2 localhost"},
