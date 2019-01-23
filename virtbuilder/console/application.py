@@ -6,7 +6,7 @@ from .commands import ValidateCommand
 
 
 def main():
-    application = Application()
+    application = Application(complete=False)
     application.add(BuildCommand())
     application.add(UploadCommand())
     application.add(ValidateCommand())
