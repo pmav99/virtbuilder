@@ -15,12 +15,12 @@ def generate_command(data, singleline=False):
 
 def _generate_command_parts(data):
     build = data["build"]
-    config = data["config"]
+    config = data["build"]["config"]
     parts = [f"virt-builder {build['os']}-{build['version']}"]
 
     # build time options
     for key, value in build.items():
-        if key in {"os", "version"}:
+        if key in {"os", "version", "config"}:
             continue
         # no-sync is a boolean flag and not a key-value pair
         if key == "no-sync":
@@ -39,13 +39,14 @@ def _generate_command_parts(data):
         else:
             parts.append(f'--{key} "{value}"')
 
-    for item in config["provision"]:
-        for key, value in item.items():
-            # install & uninstall are comma separated lists
-            if key in {"install", "uninstall"}:
-                parts.append(f'--{key} "{",".join(value)}"')
-            else:
-                parts.append(f'--{key} "{value}"')
+    if "provision" in config:
+        for item in config["provision"]:
+            for key, value in item.items():
+                # install & uninstall are comma separated lists
+                if key in {"install", "uninstall"}:
+                    parts.append(f'--{key} "{",".join(value)}"')
+                else:
+                    parts.append(f'--{key} "{value}"')
     return parts
 
 
