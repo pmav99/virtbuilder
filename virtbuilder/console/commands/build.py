@@ -8,9 +8,9 @@ from ...utils import load_yaml
 from ... import api
 
 _BUILD_HELP = """\
-A wrapper around "virt-builder". It
+A wrapper around "virt-builder".
 
-Reads an Virtual Machine (VM) image <c2>definition</> from a yaml file and creates it
+It reads a Virtual Machine (VM) image <c2>definition</> from a yaml file and creates it
 using "<c1>virt-builder</>". If <c2>preview</> is defined, then the command is only
 printed on StdOut.
 """
