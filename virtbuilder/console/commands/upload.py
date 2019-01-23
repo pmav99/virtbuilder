@@ -36,10 +36,16 @@ class UploadCommand(Command):
 
     def handle(self):
         params = self.parse_parameters()
-        if params.volume is None:
-            params.volume = params.filename.stem
+        if params["volume"] is None:
+            params["volume"] = params["filename"].stem
 
         api.create_volume(
-            params.uri, params.pool, params.volume, params.filename, params.format
+            params["uri"],
+            params["pool"],
+            params["volume"],
+            params["filename"],
+            params["format"],
         )
-        api.upload_volume(params.uri, params.pool, params.volume, params.filename)
+        api.upload_volume(
+            params["uri"], params["pool"], params["volume"], params["filename"]
+        )
