@@ -80,7 +80,7 @@ class TestBuildSchema(object):
         data = load_fixture("valid.yml")
         del data["build"][required_key]
         with pytest.raises(SchemaError) as exc:
-            schemas.definition_schema.validate(data)
+            schemas.full_schema.validate(data)
         assert required_key in f"Missing {exc.value.code} key"
 
     @pytest.mark.parametrize(
@@ -88,6 +88,6 @@ class TestBuildSchema(object):
     )
     def test_missing_optional_key_passes(self, load_fixture, optional_key):
         data = load_fixture("valid.yml")
-        schemas.definition_schema.validate(data)
+        schemas.full_schema.validate(data)
         del data["build"][optional_key]
-        assert schemas.definition_schema.validate(data)
+        assert schemas.full_schema.validate(data)

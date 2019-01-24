@@ -3,7 +3,7 @@ import pathlib
 from schema import Schema, And, Or, Use, Optional, SchemaError
 
 from ..command import Command
-from ...schemas import definition_schema
+from ...schemas import full_schema
 from ...utils import load_yaml
 from ... import api
 
@@ -34,7 +34,7 @@ class BuildCommand(Command):
                 Use(pathlib.Path),
                 lambda p: p.exists(),
                 Use(load_yaml),
-                definition_schema.validate,
+                full_schema.validate,
             ),
             "preview": And(bool),
         }

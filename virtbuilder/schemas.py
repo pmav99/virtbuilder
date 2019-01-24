@@ -74,7 +74,7 @@ build_schema = Schema(
 pool_schema = Schema({})
 vm_schema = Schema({})
 
-definition_schema = Schema(
+full_schema = Schema(
     {
         Optional("build"): build_schema,
         Optional("pool"): pool_schema,

@@ -1,7 +1,7 @@
 import shlex
 import subprocess
 
-from .schemas import definition_schema
+from .schemas import full_schema
 
 
 def generate_command(data, singleline=False):

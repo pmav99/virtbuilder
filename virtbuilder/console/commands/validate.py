@@ -3,7 +3,7 @@ import pathlib
 from schema import Schema, And, Or, Use, SchemaError
 
 from ..command import Command
-from ...schemas import definition_schema
+from ...schemas import full_schema
 from ...utils import load_yaml
 from ... import api
 
@@ -32,5 +32,5 @@ class ValidateCommand(Command):
 
     def handle(self):
         params = self.parse_parameters()
-        definition_schema.validate(params["definition"])
+        full_schema.validate(params["definition"])
         self.line("OK!")
