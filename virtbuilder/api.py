@@ -2,6 +2,7 @@ import shlex
 import subprocess
 
 from .schemas import full_schema
+from .utils import execute_cmd
 
 
 def _generate_build_command_parts(data):
