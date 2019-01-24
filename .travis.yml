@@ -12,11 +12,15 @@ cache:
 
 install:
   - pip install pip -U
+  - which pip
+  - which python
+  - which python3
   - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
   - source $HOME/.poetry/env
   - which python
   - which poetry
   - which pip
+  - poetry show --tree
   - poetry install -v
 
 script: pytest -q --runslow tests/
