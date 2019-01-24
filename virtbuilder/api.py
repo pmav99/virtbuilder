@@ -7,13 +7,15 @@ from .utils import execute_cmd
 
 def _generate_build_command_parts(data):
     build = data["build"]
-    config = data["build"]["config"]
-    parts = [f"virt-builder {build['os']}-{build['version']}"]
+    config = data["build"].pop("config", {})
+    provision = config.pop("provision", [])
+    os = build.pop("os")
+    version = build.pop("version")
+
+    parts = [f"virt-builder {os}-{version}"]
 
     # build time options
     for key, value in build.items():
-        if key in {"os", "version", "config"}:
-            continue
         # no-sync is a boolean flag and not a key-value pair
         if key == "no-sync":
             if value is True:
@@ -22,23 +24,20 @@ def _generate_build_command_parts(data):
             parts.append(f'--{key} "{value}"')
 
     for key, value in config.items():
-        if key == "provision":
-            continue
         # update & selinux-relabel are boolean flags and not key-value pairs
-        elif key in {"update", "selinux-relabel"}:
+        if key in {"update", "selinux-relabel"}:
             if value is True:
                 parts.append(f"--{key}")
         else:
             parts.append(f'--{key} "{value}"')
 
-    if "provision" in config:
-        for item in config["provision"]:
-            for key, value in item.items():
-                # install & uninstall are comma separated lists
-                if key in {"install", "uninstall"}:
-                    parts.append(f'--{key} "{",".join(value)}"')
-                else:
-                    parts.append(f'--{key} "{value}"')
+    for item in provision:
+        for key, value in item.items():
+            # install & uninstall are comma separated lists
+            if key in {"install", "uninstall"}:
+                parts.append(f'--{key} "{",".join(value)}"')
+            else:
+                parts.append(f'--{key} "{value}"')
     return parts
 
 
