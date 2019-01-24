@@ -15,13 +15,14 @@ install:
   - which pip
   - which python
   - which python3
-  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py
+  - python3 get-poetry.py --preview -y
   - source $HOME/.poetry/env
   - which python
   - which poetry
   - which pip
   - poetry show --tree
-  - poetry install -v
+  - poetry install -vvv
 
 script: pytest -q --runslow tests/
 
