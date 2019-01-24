@@ -11,7 +11,7 @@ cache:
     - "$HOME/.cache/pre-commit"
 
 install:
-  - pip install pip -U
+  #- pip install pip -U
   - which pip
   - which python
   - which python3
