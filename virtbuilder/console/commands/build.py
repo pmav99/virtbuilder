@@ -43,7 +43,7 @@ class BuildCommand(Command):
     def handle(self):
         params = self.parse_parameters()
         self.line("")
-        cmd = api.generate_command(params["definition"], singleline=False)
+        cmd = api.generate_build_command(params["definition"], singleline=False)
         self.line(cmd)
         if not params["preview"]:
             self.line("")

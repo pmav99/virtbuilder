@@ -4,16 +4,7 @@ import subprocess
 from .schemas import full_schema
 
 
-def generate_command(data, singleline=False):
-    parts = _generate_command_parts(data)
-    if singleline:
-        cmd = " ".join(parts)
-    else:
-        cmd = " \\\n           ".join(parts)
-    return cmd
-
-
-def _generate_command_parts(data):
+def _generate_build_command_parts(data):
     build = data["build"]
     config = data["build"]["config"]
     parts = [f"virt-builder {build['os']}-{build['version']}"]
@@ -48,6 +39,15 @@ def _generate_command_parts(data):
                 else:
                     parts.append(f'--{key} "{value}"')
     return parts
+
+
+def generate_build_command(data, singleline=False):
+    parts = _generate_build_command_parts(data)
+    if singleline:
+        cmd = " ".join(parts)
+    else:
+        cmd = " \\\n           ".join(parts)
+    return cmd
 
 
 def execute_cmd(cmd):
