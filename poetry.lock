@@ -1,0 +1,314 @@
+[[package]]
+category = "dev"
+description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+name = "appdirs"
+optional = false
+python-versions = "*"
+version = "1.4.3"
+
+[[package]]
+category = "dev"
+description = "A few extensions to pyyaml."
+name = "aspy.yaml"
+optional = false
+python-versions = "*"
+version = "1.1.1"
+
+[package.dependencies]
+pyyaml = "*"
+
+[[package]]
+category = "dev"
+description = "Atomic file writes."
+name = "atomicwrites"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "1.2.1"
+
+[[package]]
+category = "dev"
+description = "Classes Without Boilerplate"
+name = "attrs"
+optional = false
+python-versions = "*"
+version = "18.2.0"
+
+[[package]]
+category = "dev"
+description = "The uncompromising code formatter."
+name = "black"
+optional = false
+python-versions = ">=3.6"
+version = "18.9b0"
+
+[package.dependencies]
+appdirs = "*"
+attrs = ">=17.4.0"
+click = ">=6.5"
+toml = ">=0.9.4"
+
+[[package]]
+category = "dev"
+description = "Validate configuration and produce human readable error messages."
+name = "cfgv"
+optional = false
+python-versions = "*"
+version = "1.4.0"
+
+[package.dependencies]
+six = "*"
+
+[[package]]
+category = "main"
+description = "Cleo allows you to create beautiful and testable command-line interfaces."
+name = "cleo"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.7.2"
+
+[package.dependencies]
+clikit = ">=0.2.0,<0.3.0"
+pastel = ">=0.1.0,<0.2.0"
+pylev = ">=1.3,<2.0"
+
+[[package]]
+category = "dev"
+description = "Composable command line interface toolkit"
+name = "click"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "7.0"
+
+[[package]]
+category = "main"
+description = "CliKit is a group of utilities to build beautiful and testable command line interfaces."
+name = "clikit"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.2.3"
+
+[package.dependencies]
+pastel = ">=0.1.0,<0.2.0"
+pylev = ">=1.3,<2.0"
+
+[[package]]
+category = "dev"
+description = "Cross-platform colored terminal text."
+marker = "sys_platform == \"win32\""
+name = "colorama"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.4.1"
+
+[[package]]
+category = "dev"
+description = "File identification library for Python"
+name = "identify"
+optional = false
+python-versions = "*"
+version = "1.2.0"
+
+[[package]]
+category = "dev"
+description = "Read metadata from Python packages"
+name = "importlib-metadata"
+optional = false
+python-versions = ">=2.7,!=3.0,!=3.1,!=3.2,!=3.3"
+version = "0.8"
+
+[package.dependencies]
+zipp = ">=0.3.2"
+
+[[package]]
+category = "dev"
+description = "Read resources from Python packages"
+marker = "python_version < \"3.7\""
+name = "importlib-resources"
+optional = false
+python-versions = ">=2.7,!=3.0,!=3.1,!=3.2,!=3.3"
+version = "1.0.2"
+
+[[package]]
+category = "dev"
+description = "More routines for operating on iterables, beyond itertools"
+name = "more-itertools"
+optional = false
+python-versions = "*"
+version = "5.0.0"
+
+[package.dependencies]
+six = ">=1.0.0,<2.0.0"
+
+[[package]]
+category = "dev"
+description = "Node.js virtual environment builder"
+name = "nodeenv"
+optional = false
+python-versions = "*"
+version = "1.3.3"
+
+[[package]]
+category = "main"
+description = "Bring colors to your terminal."
+name = "pastel"
+optional = false
+python-versions = "*"
+version = "0.1.0"
+
+[[package]]
+category = "dev"
+description = "plugin and hook calling mechanisms for python"
+name = "pluggy"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.8.1"
+
+[[package]]
+category = "dev"
+description = "A framework for managing and maintaining multi-language pre-commit hooks."
+name = "pre-commit"
+optional = false
+python-versions = "*"
+version = "1.14.2"
+
+[package.dependencies]
+"aspy.yaml" = "*"
+cfgv = ">=1.4.0"
+identify = ">=1.0.0"
+importlib-metadata = "*"
+nodeenv = ">=0.11.1"
+pyyaml = "*"
+six = "*"
+toml = "*"
+virtualenv = "*"
+
+[package.dependencies.importlib-resources]
+python = "<3.7"
+version = "*"
+
+[[package]]
+category = "dev"
+description = "library with cross-python path, ini-parsing, io, code, log facilities"
+name = "py"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "1.7.0"
+
+[[package]]
+category = "main"
+description = "A pure Python Levenshtein implementation that's not freaking GPL'd."
+name = "pylev"
+optional = false
+python-versions = "*"
+version = "1.3.0"
+
+[[package]]
+category = "dev"
+description = "pytest: simple powerful testing with Python"
+name = "pytest"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "4.1.1"
+
+[package.dependencies]
+atomicwrites = ">=1.0"
+attrs = ">=17.4.0"
+colorama = "*"
+more-itertools = ">=4.0.0"
+pluggy = ">=0.7"
+py = ">=1.5.0"
+setuptools = "*"
+six = ">=1.10.0"
+
+[[package]]
+category = "dev"
+description = "YAML parser and emitter for Python"
+name = "pyyaml"
+optional = false
+python-versions = "*"
+version = "3.13"
+
+[[package]]
+category = "main"
+description = "ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
+name = "ruamel.yaml"
+optional = false
+python-versions = "*"
+version = "0.15.87"
+
+[[package]]
+category = "main"
+description = "Simple data validation library"
+name = "schema"
+optional = false
+python-versions = "*"
+version = "0.6.8"
+
+[[package]]
+category = "dev"
+description = "Python 2 and 3 compatibility utilities"
+name = "six"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*"
+version = "1.12.0"
+
+[[package]]
+category = "dev"
+description = "Python Library for Tom's Obvious, Minimal Language"
+name = "toml"
+optional = false
+python-versions = "*"
+version = "0.10.0"
+
+[[package]]
+category = "dev"
+description = "Virtual Python Environment builder"
+name = "virtualenv"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "16.2.0"
+
+[package.dependencies]
+setuptools = ">=18.0.0"
+
+[[package]]
+category = "dev"
+description = "Pathlib-compatible object wrapper for zip files"
+name = "zipp"
+optional = false
+python-versions = ">=2.7"
+version = "0.3.3"
+
+[metadata]
+content-hash = "cae167fc1d615b3eaeea82e8ac30ef0cb9cd9e6f44493036633eb393af06d078"
+python-versions = "^3.6"
+
+[metadata.hashes]
+appdirs = ["9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92", "d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"]
+"aspy.yaml" = ["04d26279513618f1024e1aba46471db870b3b33aef204c2d09bcf93bea9ba13f", "0a77e23fafe7b242068ffc0252cee130d3e509040908fc678d9d1060e7494baa"]
+atomicwrites = ["0312ad34fcad8fac3704d441f7b317e50af620823353ec657a53e981f92920c0", "ec9ae8adaae229e4f8446952d204a3e4b5fdd2d099f9be3aaf556120135fb3ee"]
+attrs = ["10cbf6e27dbce8c30807caf056c8eb50917e0eaafe86347671b57254006c3e69", "ca4be454458f9dec299268d472aaa5a11f67a4ff70093396e1ceae9c76cf4bbb"]
+black = ["817243426042db1d36617910df579a54f1afd659adb96fc5032fcf4b36209739", "e030a9a28f542debc08acceb273f228ac422798e5215ba2a791a6ddeaaca22a5"]
+cfgv = ["39d9055c47e3932908fe25abd5807e21dc002630db01c7a5f05738d027e2b706", "41d22dd864c474f919ecb88900000d2410d640315f75bdb79b3abf9347089641"]
+cleo = ["7a5000de616de42fd78f968192651b9174bf333a9079fc9d68ccc672ddfd3624", "a39fa806fd3f64ff0ae4e3a55bb80c8ce60ca73634e13619731d63a04a63be69"]
+click = ["2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13", "5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"]
+clikit = ["7bbd38fcb912058c689a03f487a66f8d1eb1f486bc5cf68d4a5798093bd0217f", "e23ac911afb7079ae0e4d89af73ee0d31c8952c64ef4fcf76bcd46bfde9aabaa"]
+colorama = ["05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d", "f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"]
+identify = ["0b2bb67c857b8048d979caeef4d20a3dfdb0337f154d16a8f9e31cd6e04ae554", "113622f73da90a723e9baf764553f807051ad80c3a9e8a7edd15aa4309861f4d"]
+importlib-metadata = ["a17ce1a8c7bff1e8674cb12c992375d8d0800c9190177ecf0ad93e0097224095", "b50191ead8c70adfa12495fba19ce6d75f2e0275c14c5a7beb653d6799b512bd"]
+importlib-resources = ["6e2783b2538bd5a14678284a3962b0660c715e5a0f10243fd5e00a4b5974f50b", "d3279fd0f6f847cced9f7acc19bd3e5df54d34f93a2e7bb5f238f81545787078"]
+more-itertools = ["38a936c0a6d98a38bcc2d03fdaaedaba9f412879461dd2ceff8d37564d6522e4", "c0a5785b1109a6bd7fac76d6837fd1feca158e54e521ccd2ae8bfe393cc9d4fc", "fe7a7cae1ccb57d33952113ff4fa1bc5f879963600ed74918f1236e212ee50b9"]
+nodeenv = ["ad8259494cf1c9034539f6cced78a1da4840a4b157e23640bc4a0c0546b0cb7a"]
+pastel = ["3108af417ec0fa6d0a620e676ec4f02c839ca13e10611586e5d2174b46aa0bc3", "d1fee8079534f99f1805a044fef946d23eee6d6a7cd34292c30e6c16be9a80b9"]
+pluggy = ["8ddc32f03971bfdf900a81961a48ccf2fb677cf7715108f85295c67405798616", "980710797ff6a041e9a73a5787804f848996ecaa6f8a1b1e08224a5894f2074a"]
+pre-commit = ["2cb7a588fdc78e4ec4e624932765e65d285159f4b3425121106cbd9060e40e04", "74ee5779a17ef540efdf9a832911fe9057b1bb57d5d0152eace6534a228a863b"]
+py = ["bf92637198836372b520efcba9e020c330123be8ce527e535d185ed4b6f45694", "e76826342cefe3c3d5f7e8ee4316b80d1dd8a300781612ddbc765c17ba25a6c6"]
+pylev = ["063910098161199b81e453025653ec53556c1be7165a9b7c50be2f4d57eae1c3", "1d29a87beb45ebe1e821e7a3b10da2b6b2f4c79b43f482c2df1a1f748a6e114e"]
+pytest = ["41568ea7ecb4a68d7f63837cf65b92ce8d0105e43196ff2b26622995bb3dc4b2", "c3c573a29d7c9547fb90217ece8a8843aa0c1328a797e200290dc3d0b4b823be"]
+pyyaml = ["3d7da3009c0f3e783b2c873687652d83b1bbfd5c88e9813fb7e5b03c0dd3108b", "3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf", "40c71b8e076d0550b2e6380bada1f1cd1017b882f7e16f09a65be98e017f211a", "558dd60b890ba8fd982e05941927a3911dc409a63dcb8b634feaa0cda69330d3", "a7c28b45d9f99102fa092bb213aa12e0aaf9a6a1f5e395d36166639c1f96c3a1", "aa7dd4a6a427aed7df6fb7f08a580d68d9b118d90310374716ae90b710280af1", "bc558586e6045763782014934bfaf39d48b8ae85a2713117d16c39864085c613", "d46d7982b62e0729ad0175a9bc7e10a566fc07b224d2c79fafb5e032727eaa04", "d5eef459e30b09f5a098b9cea68bebfeb268697f78d647bd255a085371ac7f3f", "e01d3203230e1786cd91ccfdc8f8454c8069c91bee3962ad93b87a4b2860f537", "e170a9e6fcfd19021dd29845af83bb79236068bf5fd4df3327c1be18182b2531"]
+"ruamel.yaml" = ["18078354bfcf00d51bcc17984aded80840379aed36036f078479e191b59bc059", "211e6ef2530f44fc3197c713892678e7fbfbc40a1db6741179d6981514be1674", "2e8f7cee12a2372cec4480fe81086b1fdab163f4b56e58b5592a105c52973b78", "48cc8e948a7ec4917bf94adff2cc1255e98f1eef5e1961889886acc4ff3a7194", "4a0c7f970aa0e30bc541f690fbd14aca19de1cab70787180de5083b902ec40b5", "5dd0ea7c5c703e8675f3caf2898a50b4dadaa52838f8e104637a452a05e03030", "612fb4833f1978ceb7fd7a24d86a5ebd103bcc408394f3af621293194658cf1b", "61c421a7a2b8e2886a94fbe29866df6b99451998abaa1584b9fdc9c10c33e40b", "6483416847980aa7090b697d177a8754c4f340683cc84abd38da7b850826687d", "6622f3b0cae7ed6fe5d3d6a6d8d8cb9413a05b408d69a789a57b77a616bb6562", "80b2acde0d1b9d25e5c041960a9149480c15c6d9f4c24b8ddb381b14e9e70ea4", "8f9ed94be17f306485df8fd0274a30f130a73f127798657d4dc65b1f89ec7a36", "9a6b94cc9b6e738036426498ac9fe8ca05afea4249fb9dec1be32ce4823d5756", "a4b11dfe421a9836c723107a4ccc9cab9674de611ba60b8212e85526ea8bf254", "a55e55c6ecb5725ba472f9b811940e8d258a32fb36f5793dbc38582d6f377f3f", "a736ab1d8c2d5566254a1a2ee38e7c5460520bcccd4a8f0feb25a4463735e5a7", "c29d0a3cffa5a25f5259bfeac06ffdc5e7d1fd38a0a26a6664d160192730434f", "c33458217a8c352b59c86065c4f05f3f1ac28b01c3e1a422845c306237446bf3", "cc9bd3c3fa8a928f7b6e19fe8de13a61deb91f257eccbe0d16114ce8c54cdc81", "d63b7c828a7358ce5b03a3e2c2a3e5a7058a954f8919334cb09b3d8541d1fff6", "fbd301680a3563e84d667042dac1c5d50ef402ecf1f4b1763507a6877b8181ad", "fc67e79e2f5083be6fd1000c4646e13a891585772a503f56f51f845b547fe621"]
+schema = ["d994b0dc4966000037b26898df638e3e2a694cc73636cb2050e652614a350687", "fa1a53fe5f3b6929725a4e81688c250f46838e25d8c1885a10a590c8c01a7b74"]
+six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
+toml = ["229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c", "235682dd292d5899d361a811df37e04a8828a5b1da3115886b73cf81ebc9100e", "f1db651f9657708513243e61e6cc67d101a39bad662eaa9b5546f789338e07a3"]
+virtualenv = ["34b9ae3742abed2f95d3970acf4d80533261d6061b51160b197f84e5b4c98b4c", "fa736831a7b18bd2bfeef746beb622a92509e9733d645952da136b0639cd40cd"]
+zipp = ["55ca87266c38af6658b84db8cfb7343cdb0bf275f93c7afaea0d8e7a209c7478", "682b3e1c62b7026afe24eadf6be579fb45fec54c07ea218bded8092af07a68c4"]
