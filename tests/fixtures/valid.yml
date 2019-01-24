@@ -16,6 +16,7 @@ build:
     hostname: 'kmaster'
     timezone: 'Europe/Athens'
     password-crypto: 'sha512'
+    root-password: 'disabled'
     provision:
       - append-line: '/etc/hosts:'
       - append-line: '/etc/hosts:10.0.0.1 foo'
