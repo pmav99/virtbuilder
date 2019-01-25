@@ -72,10 +72,9 @@ class TestBuildSchema(object):
         exc_code = exc.value.code
         assert "os" in exc_code
         assert "version" in exc_code
-        assert "size" in exc_code
         assert "format" in exc_code
 
-    @pytest.mark.parametrize("required_key", ["os", "version", "size", "format"])
+    @pytest.mark.parametrize("required_key", ["os", "version", "format"])
     def test_missing_required_key_raises(self, load_fixture, required_key):
         data = load_fixture("valid.yml")
         del data["build"][required_key]
@@ -84,7 +83,7 @@ class TestBuildSchema(object):
         assert required_key in f"Missing {exc.value.code} key"
 
     @pytest.mark.parametrize(
-        "optional_key", ["output", "arch", "no-sync", "memsize", "smp"]
+        "optional_key", ["output", "arch", "no-sync", "size", "memsize", "smp"]
     )
     def test_missing_optional_key_passes(self, load_fixture, optional_key):
         data = load_fixture("valid.yml")

@@ -60,7 +60,7 @@ build_schema = Schema(
         "os": And(Use(str), len),
         "version": And(str, len),
         Optional("output"): And(str, len),
-        "size": And(str, len),
+        Optional("size"): And(str, len),
         "format": And(str, len, OneOf("raw", "qcow2")),
         Optional("arch"): And(str, len),
         Optional("no-sync"): And(bool),
