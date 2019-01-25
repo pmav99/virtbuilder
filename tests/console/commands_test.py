@@ -15,6 +15,6 @@ def test_that_a_simple_image_can_be_created(get_fixture):
     # print(repr(tester.io.fetch_output()))
     image = pathlib.Path("/tmp/simple.qcow2")
     assert image.exists()
-    assert image.stat().st_size > 1_000_000_000  # The image should be ~1.4GB
+    assert image.stat().st_size > 20000  # The image should be ~30MB
     # cleanup
     image.unlink()
