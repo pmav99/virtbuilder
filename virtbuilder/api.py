@@ -9,10 +9,10 @@ def _generate_build_command_parts(data):
     build = data["build"]
     config = data["build"].pop("config", {})
     provision = config.pop("provision", [])
-    os = build.pop("os")
+    OS = build.pop("os")
     version = build.pop("version")
 
-    parts = [f"virt-builder {os}-{version}"]
+    parts = [f"virt-builder {OS}-{version}"]
 
     # build time options
     for key, value in build.items():
