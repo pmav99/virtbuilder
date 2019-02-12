@@ -63,11 +63,10 @@ ProvisionSchema = Schema(
     ]
 )
 
-build_config_schema = Schema(
+ImageConfigSchema = Schema(
     {
         Optional("update"): And(bool),
         Optional("selinux-relabel"): And(bool),
-        Optional("hostname"): And(str, len),
         Optional("timezone"): And(str, len),
         Optional("password-crypto", default="sha512"): And(
             str, len, OneOf("md5", "sha256", "sha512")
@@ -77,37 +76,18 @@ build_config_schema = Schema(
     }
 )
 
-build_schema = Schema(
+ImageSchema = Schema(
     {
-        "os": And(Use(str), len),
-        "version": And(str, len),
-        Optional("output"): And(str, len),
-        Optional("size"): And(str, len),
-        "format": And(str, len, OneOf("raw", "qcow2")),
+        "size": And(str, len),
         Optional("arch"): And(str, len),
         Optional("no-sync"): And(bool),
         Optional("memsize"): And(int, lambda n: n > 1000),
         Optional("smp", default=4): And(int, lambda n: n > 1),
         # TODO Add support for --attach and --attach-format
-        Optional("config"): build_config_schema,
+        Optional("config"): ImageConfigSchema,
     }
 )
 
-pool_schema = Schema(
-    {
-        "uri": And(str, len),
-        "pool": And(str, len),
-        "volume": And(str, len),
-        Optional("image"): And(str, len),
-    }
-)
+FullSchema = Schema({"general": GeneralSchema, "image": ImageSchema, "vm": VM_Schema})
 
-vm_schema = Schema({})
-
-full_schema = Schema(
-    {
-        Optional("build"): build_schema,
-        Optional("pool"): pool_schema,
-        Optional("vm"): vm_schema,
-    }
-)
+full_schema = FullSchema

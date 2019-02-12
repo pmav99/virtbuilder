@@ -1,5 +1,5 @@
 import pytest
-from schema import SchemaError, SchemaMissingKeyError
+from schema import SchemaError
 
 import virtbuilder.schemas as schemas
 from virtbuilder.utils import load_yaml
@@ -202,7 +202,6 @@ class TestProvisionSchema(BaseSchemaTestCase):
     def test_extra_key_raises(self):
         data = self.valid.copy()
         data.append({GIBBERISH: GIBBERISH})
-        print(data)
         with pytest.raises(SchemaError) as exc:
             self.schema.validate(data)
         assert f"Wrong key '{GIBBERISH}'" in str(exc.value)
@@ -227,68 +226,101 @@ class TestProvisionSchema(BaseSchemaTestCase):
         self.schema.validate(data)
 
 
-class TestBuildConfigSchema(object):
-    @property
-    def schema(self):
-        return schemas.build_config_schema
+class TestImageConfigSchema(BaseSchemaTestCase):
 
-    def test_valid_schema_passes(self, load_fixture):
-        data = load_fixture("valid.yml")
-        self.schema.validate(data["build"]["config"])
+    schema = schemas.ImageConfigSchema
+    valid = {
+        "update": True,
+        "selinux-relabel": False,
+        "timezone": "Europe/Athens",
+        "password-crypto": "sha512",
+        "root-password": "disabled",
+        "provision": [
+            {"append-line": "/etc/hosts:10.0.0.1 foo"},
+            {"chmod": "0700:/path/p1"},
+            {"install": ["wget", "curl"]},
+        ],
+    }
+
+    mandatory_keys = []
+    optional_keys = [
+        "update",
+        "selinux-relabel",
+        "timezone",
+        "password-crypto",
+        "root-password",
+        "provision",
+    ]
 
     def test_empty_schema_passes(self):
         self.schema.validate({})
 
-    @pytest.mark.parametrize(
-        "optional_key",
-        [
-            "update",
-            "selinux-relabel",
-            "hostname",
-            "timezone",
-            "root-password",
-            "password-crypto",
-            "provision",
-        ],
-    )
-    def test_missing_optional_key_passes(self, load_fixture, optional_key):
-        data = load_fixture("valid.yml")["build"]["config"]
-        del data[optional_key]
-        self.schema.validate(data)
+    @pytest.mark.parametrize("key", mandatory_keys)
+    def test_missing_mandatory_key_raises(self, key):
+        self._test_missing_mandatory_key_raises(key)
+
+    @pytest.mark.parametrize("key", optional_keys)
+    def test_missing_optional_key_passes(self, key):
+        self._test_missing_optional_key_passes(key)
 
 
-class TestBuildSchema(object):
-    @property
-    def schema(self):
-        return schemas.build_schema
+class TestImageSchema(BaseSchemaTestCase):
+    schema = schemas.ImageSchema
 
-    def test_valid_schema_passes(self, load_fixture):
-        data = load_fixture("valid.yml")
-        self.schema.validate(data["build"])
+    valid = {
+        "size": "12G",
+        "arch": "x86_64",
+        "no-sync": True,
+        "memsize": 2000,
+        "smp": 2,
+        "config": {
+            "update": True,
+            "selinux-relabel": False,
+            "timezone": "Europe/Athens",
+            "password-crypto": "sha512",
+            "root-password": "disabled",
+            "provision": [
+                {"append-line": "/etc/hosts:10.0.0.1 foo"},
+                {"chmod": "0700:/path/p1"},
+                {"install": ["wget", "curl"]},
+            ],
+        },
+    }
 
-    def test_empty_schema_raises(self):
-        print(type(self.schema))
-        with pytest.raises(SchemaMissingKeyError) as exc:
-            self.schema.validate({})
-        # Check that the mandatory fields are mentioned in the traceback
-        exc_code = exc.value.code
-        assert "os" in exc_code
-        assert "version" in exc_code
-        assert "format" in exc_code
+    mandatory_keys = ["size"]
+    optional_keys = ["arch", "no-sync", "memsize", "smp", "config"]
 
-    @pytest.mark.parametrize("required_key", ["os", "version", "format"])
-    def test_missing_required_key_raises(self, load_fixture, required_key):
-        data = load_fixture("valid.yml")
-        del data["build"][required_key]
-        with pytest.raises(SchemaError) as exc:
-            schemas.full_schema.validate(data)
-        assert required_key in f"Missing {exc.value.code} key"
+    @pytest.mark.parametrize("key", mandatory_keys)
+    def test_missing_mandatory_key_raises(self, key):
+        self._test_missing_mandatory_key_raises(key)
 
-    @pytest.mark.parametrize(
-        "optional_key", ["output", "arch", "no-sync", "size", "memsize", "smp"]
-    )
-    def test_missing_optional_key_passes(self, load_fixture, optional_key):
-        data = load_fixture("valid.yml")
-        schemas.full_schema.validate(data)
-        del data["build"][optional_key]
-        assert schemas.full_schema.validate(data)
+    @pytest.mark.parametrize("key", optional_keys)
+    def test_missing_optional_key_passes(self, key):
+        self._test_missing_optional_key_passes(key)
+
+
+class TestFullSchema(BaseSchemaTestCase):
+    schema = schemas.FullSchema
+    valid = {
+        "general": {
+            "uri": "qemu:///system",
+            "pool": "kvm",
+            "name": "kmaster",
+            "format": "qcow2",
+            "os-type": "linux",
+            "os-name": "ubuntu",
+            "os-version": "18.04",
+        },
+        "image": {"size": "10GB"},
+        "vm": {"ram": 2000, "vcpus": 4},
+    }
+    mandatory_keys = ["general", "image", "vm"]
+    optional_keys = []
+
+    @pytest.mark.parametrize("key", mandatory_keys)
+    def test_missing_mandatory_key_raises(self, key):
+        self._test_missing_mandatory_key_raises(key)
+
+    @pytest.mark.parametrize("key", optional_keys)
+    def test_missing_optional_key_passes(self, key):
+        self._test_missing_optional_key_passes(key)
