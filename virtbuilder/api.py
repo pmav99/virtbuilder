@@ -1,3 +1,4 @@
+import os.path
 import shlex
 import subprocess
 
@@ -21,6 +22,7 @@ def _generate_build_command_parts(data):
             if value is True:
                 parts.append(f"--{key}")
         else:
+            value = os.path.expandvars(value)
             parts.append(f'--{key} "{value}"')
 
     for key, value in config.items():
@@ -29,6 +31,7 @@ def _generate_build_command_parts(data):
             if value is True:
                 parts.append(f"--{key}")
         else:
+            value = os.path.expandvars(value)
             parts.append(f'--{key} "{value}"')
 
     for item in provision:
@@ -37,6 +40,7 @@ def _generate_build_command_parts(data):
             if key in {"install", "uninstall"}:
                 parts.append(f'--{key} "{",".join(value)}"')
             else:
+                value = os.path.expandvars(value)
                 parts.append(f'--{key} "{value}"')
     return parts
 
