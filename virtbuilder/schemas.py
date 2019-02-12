@@ -12,31 +12,33 @@ def OneOf(*unique):
 # Provision is a
 build_config_provision_schema = Schema(
     [
-        Or(
-            {"append-line": And(str, len)},
-            {"chmod": And(str, len)},
-            {"copy": And(str, len)},
-            {"copy-in": And(str, len)},
-            {"delete": And(str, len)},
-            {"edit": And(str, len)},
-            {"firstboot": And(str, len)},
-            {"firstboot-command": And(str, len)},
-            {"firstboot-install": [And(str, len)]},
-            {"install": [And(str, len)]},
-            {"link": And(str, len)},
-            {"mkdir": And(str, len)},
-            {"move": And(str, len)},
-            {"password": And(str, len)},
-            {"run": And(str, len, Use(pathlib.Path), lambda p: p.exists())},
-            {"run-command": And(str, len)},
-            {"scrub": And(str, len)},
-            {"ssh-inject": And(str, len)},
-            {"touch": And(str, len)},
-            {"touch": And(str, len)},
-            {"truncate-recursive": And(str, len)},
-            {"uninstall": [And(str, len)]},
-            {"upload": And(str, len)},
-            {"write": And(str, len)},
+        Optional(
+            Or(
+                {"append-line": And(str, len)},
+                {"chmod": And(str, len)},
+                {"copy": And(str, len)},
+                {"copy-in": And(str, len)},
+                {"delete": And(str, len)},
+                {"edit": And(str, len)},
+                {"firstboot": And(str, len)},
+                {"firstboot-command": And(str, len)},
+                {"firstboot-install": [And(str, len)]},
+                {"install": [And(str, len)]},
+                {"link": And(str, len)},
+                {"mkdir": And(str, len)},
+                {"move": And(str, len)},
+                {"password": And(str, len)},
+                {"run": And(str, len, Use(pathlib.Path), lambda p: p.exists())},
+                {"run-command": And(str, len)},
+                {"scrub": And(str, len)},
+                {"ssh-inject": And(str, len)},
+                {"touch": And(str, len)},
+                {"touch": And(str, len)},
+                {"truncate-recursive": And(str, len)},
+                {"uninstall": [And(str, len)]},
+                {"upload": And(str, len)},
+                {"write": And(str, len)},
+            )
         )
     ]
 )
@@ -71,7 +73,15 @@ build_schema = Schema(
     }
 )
 
-pool_schema = Schema({})
+pool_schema = Schema(
+    {
+        "uri": And(str, len),
+        "pool": And(str, len),
+        "volume": And(str, len),
+        Optional("image"): And(str, len),
+    }
+)
+
 vm_schema = Schema({})
 
 full_schema = Schema(

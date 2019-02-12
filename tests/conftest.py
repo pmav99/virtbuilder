@@ -10,6 +10,7 @@ from virtbuilder.utils import load_yaml
 @pytest.fixture
 def get_fixture():
     """ Return the path to a fixture. """
+
     module = pathlib.Path(__file__)
     fixtures_dir = module.parent / "fixtures"
 
