@@ -21,6 +21,19 @@ GeneralSchema = Schema(
     }
 )
 
+VM_Schema = Schema(
+    {
+        "ram": And(Use(int), lambda n: n > 0),
+        "vcpus": And(Use(int), lambda n: n > 0),
+        Optional("graphics"): And(str, len),
+        Optional("console"): And(str, len),
+        Optional("extra-args"): And(str, len),
+        Optional("disk"): And(str, len),
+        Optional("network"): And(str, len),
+    }
+)
+
+
 # Provision is a
 build_config_provision_schema = Schema(
     [

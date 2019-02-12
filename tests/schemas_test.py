@@ -90,11 +90,48 @@ class TestGeneralSchema(BaseSchemaTestCase):
         assert f"Key '{key}' error:" in str(exc.value)
         assert "Regex" in str(exc.value)
 
+
+class TestVM_Schema(BaseSchemaTestCase):
+
+    schema = schemas.VM_Schema
+
+    valid = {
+        "ram": 3072,
+        "vcpus": 3,
+        "graphics": "None",
+        "console": "pty,target_type=serial",
+        "extra-args": "console=ttyS0",
+        "disk": "vol=kvm/kmaster,bus=virtio,cache=none,io=native",
+        "network": "bridge=virbr2,mac=52:54:00:10:00:10",
+    }
+
+    mandatory_keys = ["ram", "vcpus"]
+
+    optional_keys = ["graphics", "console", "extra-args", "disk", "network"]
+
+    @pytest.mark.parametrize("key", mandatory_keys)
+    def test_missing_mandatory_key_raises(self, key):
+        self._test_missing_mandatory_key_raises(key)
+
+    @pytest.mark.parametrize("key", optional_keys)
+    def test_missing_optional_key_passes(self, key):
+        self._test_missing_optional_key_passes(key)
+
+    @pytest.mark.parametrize("value", ["asdf", "-32"])
+    def test_non_positive_ram_raises(self, value):
         data = self.valid.copy()
-        data.pop(key)
+        data["ram"] = value
         with pytest.raises(SchemaError) as exc:
             self.schema.validate(data)
-        assert f"Missing keys: '{key}'" in str(exc)
+        assert "Key 'ram' error" in str(exc.value)
+
+    @pytest.mark.parametrize("value", ["asdf", "-32"])
+    def test_non_positive_vcpus_raises(self, value):
+        data = self.valid.copy()
+        data["vcpus"] = value
+        with pytest.raises(SchemaError) as exc:
+            self.schema.validate(data)
+        assert "Key 'vcpus' error" in str(exc.value)
 
 
 class TestBuildConfigProvisionSchema(object):
