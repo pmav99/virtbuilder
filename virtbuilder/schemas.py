@@ -1,5 +1,5 @@
 import pathlib
-from schema import Schema, And, Or, Use, Optional, SchemaError
+from schema import Schema, And, Or, Use, Optional, SchemaError, Regex
 
 
 def OneOf(*unique):
@@ -8,6 +8,18 @@ def OneOf(*unique):
 
     return one_of
 
+
+GeneralSchema = Schema(
+    {
+        "uri": Regex(r"\w+:(\/?\/?)[^\s]+"),
+        "pool": Regex(r"\w+"),
+        "name": Regex(r"\w+"),
+        "format": And(Regex(r"\w+"), lambda s: s in ("qcow2", "raw")),
+        "os-type": Regex(r"\w+"),
+        "os-name": Regex(r"\w+"),
+        "os-version": Regex(r"\w+"),
+    }
+)
 
 # Provision is a
 build_config_provision_schema = Schema(
