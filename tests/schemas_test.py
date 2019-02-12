@@ -134,14 +134,60 @@ class TestVM_Schema(BaseSchemaTestCase):
         assert "Key 'vcpus' error" in str(exc.value)
 
 
-class TestBuildConfigProvisionSchema(object):
-    @property
-    def schema(self):
-        return schemas.build_config_provision_schema
+class TestProvisionSchema(BaseSchemaTestCase):
 
-    def test_valid_schema_passes(self, load_fixture):
-        data = load_fixture("valid.yml")
-        self.schema.validate(data["build"]["config"]["provision"])
+    schema = schemas.ProvisionSchema
+    valid = [
+        {"append-line": "/etc/hosts:10.0.0.1 foo"},
+        {"chmod": "0700:/path/p1"},
+        {"copy": "remote_src:remote_dest"},
+        {"copy-in": "local_src:remote_dest"},
+        {"delete": "/path/deleteme"},
+        {"edit": "/path/deleteme"},
+        {"firstboot-command": "echo 1"},
+        {"firstboot-install": ["pkg1", "pkg2"]},
+        {"install": ["ansible", "apt", "wget"]},
+        {"link": "target1:link1"},
+        {"mkdir": "/path/makeme2"},
+        {"move": "remote_src:remote_dest"},
+        {"password": "asdf"},
+        {"run": "/etc/fstab"},
+        {"run-command": "/etc/fstab"},
+        {"scrub": "root:/"},
+        {"ssh-inject": "root:file:$HOME/.ssh/id_rsa.pub"},
+        {"touch": "root:/"},
+        {"truncate-recursive": "root:/"},
+        {"uninstall": ["ansible", "apt", "wget"]},
+        {"upload": "root:/"},
+        {"write": "asdfasdf"},
+    ]
+
+    mandatory_keys = []
+    optional_keys = [
+        "append-line",
+        "chmod",
+        "copy",
+        "copy-in",
+        "delete",
+        "edit",
+        "firstboot",
+        "firstboot-command",
+        "firstboot-install",
+        "install",
+        "link",
+        "mkdir",
+        "move",
+        "password",
+        "run",
+        "run_command",
+        "scrub",
+        "ssh-inject",
+        "touch",
+        "truncate-recursive",
+        "uninstall",
+        "upload",
+        "write",
+    ]
 
     def test_empty_schema_passes(self):
         self.schema.validate([])
@@ -151,6 +197,33 @@ class TestBuildConfigProvisionSchema(object):
             {"append-line": "/etc/hosts:127.0.0.1 localhost"},
             {"append-line": "/etc/hosts:127.0.1.2 localhost"},
         ]
+        self.schema.validate(data)
+
+    def test_extra_key_raises(self):
+        data = self.valid.copy()
+        data.append({GIBBERISH: GIBBERISH})
+        print(data)
+        with pytest.raises(SchemaError) as exc:
+            self.schema.validate(data)
+        assert f"Wrong keys '{GIBBERISH}'" in str(exc.value)
+
+    @pytest.mark.parametrize("key", mandatory_keys)
+    def test_missing_mandatory_key_raises(self, key):
+        self._test_missing_mandatory_key_raises(key)
+        data = self.valid.copy()
+        data.pop(key)
+        with pytest.raises(SchemaError) as exc:
+            self.schema.validate(data)
+        assert f"Missing keys: '{key}'" in str(exc)
+
+    @pytest.mark.parametrize("key", optional_keys)
+    def test_missing_optional_key_passes(self, key):
+        data = self.valid.copy()
+        for i, elem in enumerate(data):
+            print(elem)
+            if key == list(elem.keys())[0]:
+                data.remove(elem)
+                break
         self.schema.validate(data)
 
 

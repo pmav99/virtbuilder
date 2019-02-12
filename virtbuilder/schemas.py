@@ -35,36 +35,31 @@ VM_Schema = Schema(
 
 
 # Provision is a
-build_config_provision_schema = Schema(
+ProvisionSchema = Schema(
     [
-        Optional(
-            Or(
-                {"append-line": And(str, len)},
-                {"chmod": And(str, len)},
-                {"copy": And(str, len)},
-                {"copy-in": And(str, len)},
-                {"delete": And(str, len)},
-                {"edit": And(str, len)},
-                {"firstboot": And(str, len)},
-                {"firstboot-command": And(str, len)},
-                {"firstboot-install": [And(str, len)]},
-                {"install": [And(str, len)]},
-                {"link": And(str, len)},
-                {"mkdir": And(str, len)},
-                {"move": And(str, len)},
-                {"password": And(str, len)},
-                {"run": And(str, len, Use(pathlib.Path), lambda p: p.exists())},
-                {"run-command": And(str, len)},
-                {"scrub": And(str, len)},
-                {"ssh-inject": And(str, len)},
-                {"touch": And(str, len)},
-                {"touch": And(str, len)},
-                {"truncate-recursive": And(str, len)},
-                {"uninstall": [And(str, len)]},
-                {"upload": And(str, len)},
-                {"write": And(str, len)},
-            )
-        )
+        {Optional("append-line"): And(str, len)},
+        {Optional("chmod"): And(str, len)},
+        {Optional("copy"): And(str, len)},
+        {Optional("copy-in"): And(str, len)},
+        {Optional("delete"): And(str, len)},
+        {Optional("edit"): And(str, len)},
+        {Optional("firstboot"): And(str, len)},
+        {Optional("firstboot-command"): And(str, len)},
+        {Optional("firstboot-install"): [And(str, len)]},
+        {Optional("install"): [And(str, len)]},
+        {Optional("link"): And(str, len)},
+        {Optional("mkdir"): And(str, len)},
+        {Optional("move"): And(str, len)},
+        {Optional("password"): And(str, len)},
+        {Optional("run"): And(str, len, Use(pathlib.Path), lambda p: p.exists())},
+        {Optional("run-command"): And(str, len)},
+        {Optional("scrub"): And(str, len)},
+        {Optional("ssh-inject"): And(str, len)},
+        {Optional("touch"): And(str, len)},
+        {Optional("truncate-recursive"): And(str, len)},
+        {Optional("uninstall"): [And(str, len)]},
+        {Optional("upload"): And(str, len)},
+        {Optional("write"): And(str, len)},
     ]
 )
 
@@ -78,7 +73,7 @@ build_config_schema = Schema(
             str, len, OneOf("md5", "sha256", "sha512")
         ),
         Optional("root-password"): And(str, len),
-        Optional("provision"): build_config_provision_schema,
+        Optional("provision"): ProvisionSchema,
     }
 )
 
