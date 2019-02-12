@@ -23,14 +23,14 @@ class BaseSchemaTestCase(object):
         data[GIBBERISH] = GIBBERISH
         with pytest.raises(SchemaError) as exc:
             self.schema.validate(data)
-        assert f"Wrong keys '{GIBBERISH}'" in str(exc.value)
+        assert f"Wrong key '{GIBBERISH}'" in str(exc.value)
 
     def _test_missing_mandatory_key_raises(self, key):
         data = self.valid.copy()
         data.pop(key)
         with pytest.raises(SchemaError) as exc:
             self.schema.validate(data)
-        assert f"Missing keys: '{key}'" in str(exc)
+        assert f"Missing key: '{key}'" in str(exc)
 
     def _test_missing_optional_key_passes(self, key):
         data = self.valid.copy()
@@ -205,7 +205,7 @@ class TestProvisionSchema(BaseSchemaTestCase):
         print(data)
         with pytest.raises(SchemaError) as exc:
             self.schema.validate(data)
-        assert f"Wrong keys '{GIBBERISH}'" in str(exc.value)
+        assert f"Wrong key '{GIBBERISH}'" in str(exc.value)
 
     @pytest.mark.parametrize("key", mandatory_keys)
     def test_missing_mandatory_key_raises(self, key):
@@ -214,7 +214,7 @@ class TestProvisionSchema(BaseSchemaTestCase):
         data.pop(key)
         with pytest.raises(SchemaError) as exc:
             self.schema.validate(data)
-        assert f"Missing keys: '{key}'" in str(exc)
+        assert f"Missing key: '{key}'" in str(exc)
 
     @pytest.mark.parametrize("key", optional_keys)
     def test_missing_optional_key_passes(self, key):
