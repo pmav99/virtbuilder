@@ -1,9 +1,13 @@
 import json
+import pathlib
+import shlex
+import subprocess
 
 import ruamel.yaml
 
 
 def load_yaml(path):
+    path = pathlib.Path(path)
     yml = ruamel.yaml.YAML(typ="safe", pure=True)  # 'safe' load and dump
     data = yml.load(path.read_text())
     return data
@@ -20,3 +24,8 @@ def execute_cmd(cmd):
     # newlines seem to confuse shlex
     cmd = [elem for elem in cmd if elem != "\n"]
     return subprocess.check_call(cmd)
+
+
+def display_cmd(cmd):
+    print(cmd)
+    input("Press ENTER to continue: ")

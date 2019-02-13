@@ -1,0 +1,17 @@
+---
+
+general:
+  uri: 'qemu:///system'
+  pool: 'kvm'
+  name: 'kmaster'
+  format: 'qcow2'
+  os-type: 'linux'
+  os-name: 'ubuntu'
+  os-version: '18.04'
+
+image:
+  size: '12G'
+
+vm:
+  ram: 2000
+  vcpus: 4
