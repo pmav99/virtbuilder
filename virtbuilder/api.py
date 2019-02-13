@@ -142,3 +142,14 @@ def get_create_commands(definition_file, stage=None):
     data = load_yaml(definition_file)
     cmds = build_commands(data, stage=stage)
     return cmds
+
+
+def get_remove_commands(definition_file):
+    data = load_yaml(definition_file)
+    name = data["general"]["name"]
+    uri = data["general"]["uri"]
+    cmds = [
+        f"virsh --connect {uri} destroy {name}",
+        f"virsh --connect {uri} undefine --remove-all-storage {name}",
+    ]
+    return cmds

@@ -53,6 +53,27 @@ class CreateCommand(Command):
             execute_cmd(cmd)
 
 
+class RemoveCommand(Command):
+    """
+    Remove the VM
+
+    remove
+        {definition : The yaml file with the image configuration}
+        {--stage= : The stage you want to run. Needs to be one of [image,upload,vm]}
+    """
+
+    def handle(self):
+        params = self.get_parameters()
+        api.validate(params["definition"])
+        cmds = api.get_remove_commands(definition_file=params["definition"])
+        for cmd in cmds:
+            self.line("\n")
+            self.line(cmd)
+            self.line("\n")
+            input("Press Enter to Continue")
+            execute_cmd(cmd)
+
+
 class PreviewCommand(Command):
     """
     Preview the commands that will be executed without running them.
