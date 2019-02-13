@@ -42,7 +42,7 @@ class CreateCommand(Command):
         params = self.get_parameters()
         validate_stage(params["stage"])
         api.validate(params["definition"])
-        cmds = api.get_commands(
+        cmds = api.get_create_commands(
             definition_file=params["definition"], stage=params["stage"]
         )
         for cmd in cmds:
@@ -66,7 +66,7 @@ class PreviewCommand(Command):
         params = self.get_parameters()
         validate_stage(params["stage"])
         api.validate(params["definition"])
-        cmds = api.get_commands(
+        cmds = api.get_create_commands(
             definition_file=params["definition"], stage=params["stage"]
         )
         for cmd in cmds:

@@ -138,7 +138,7 @@ def build_commands(data, stage):
     return cmds
 
 
-def get_commands(definition_file, stage=None):
+def get_create_commands(definition_file, stage=None):
     data = load_yaml(definition_file)
     cmds = build_commands(data, stage=stage)
     return cmds
