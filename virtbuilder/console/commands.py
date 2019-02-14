@@ -49,7 +49,7 @@ class CreateCommand(Command):
             self.line("\n")
             self.line(cmd)
             self.line("\n")
-            input("Press Enter to Continue")
+            self.ask("Press Enter to Continue")
             execute_cmd(cmd)
 
 
@@ -70,7 +70,7 @@ class RemoveCommand(Command):
             self.line("\n")
             self.line(cmd)
             self.line("\n")
-            input("Press Enter to Continue")
+            self.ask("Press Enter to Continue")
             execute_cmd(cmd)
 
 
