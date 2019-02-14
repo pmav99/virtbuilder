@@ -68,7 +68,7 @@ def build_image_cmd(data, singleline=False) -> str:
 def build_volume_cmd(data, singleline=False):
     general = data["general"]
     image = pathlib.Path(f"{general['name']}.{general['format']}").resolve()
-    image_size = image.stat().st_size
+    image_size = data["image"]["size"]
     create_volume_parts = [
         f"virsh",
         f"--connect {general['uri']}",
