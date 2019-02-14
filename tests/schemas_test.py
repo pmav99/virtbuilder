@@ -50,11 +50,20 @@ class TestGeneralSchema(BaseSchemaTestCase):
         "os-type": "linux",
         "os-name": "ubuntu",
         "os-version": "18.04",
+        "verbose": True,
     }
 
-    mandatory_keys = valid.keys()
+    mandatory_keys = [
+        "uri",
+        "pool",
+        "name",
+        "format",
+        "os-type",
+        "os-name",
+        "os-version",
+    ]
 
-    optional_keys = []
+    optional_keys = ["verbose"]
 
     @pytest.mark.parametrize("key", mandatory_keys)
     def test_missing_mandatory_key_raises(self, key):
@@ -81,7 +90,7 @@ class TestGeneralSchema(BaseSchemaTestCase):
         assert f"Key 'format' error:" in str(exc.value)
         assert GIBBERISH in str(exc.value)
 
-    @pytest.mark.parametrize("key", valid.keys())
+    @pytest.mark.parametrize("key", mandatory_keys)
     def test_empty_string_raises(self, key):
         data = self.valid.copy()
         data[key] = ""
@@ -310,6 +319,7 @@ class TestFullSchema(BaseSchemaTestCase):
             "os-type": "linux",
             "os-name": "ubuntu",
             "os-version": "18.04",
+            "verbose": True,
         },
         "image": {"size": "10GB"},
         "vm": {"ram": 2000, "vcpus": 4},

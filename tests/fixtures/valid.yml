@@ -8,6 +8,7 @@ general:
   os-type: 'linux'
   os-name: 'ubuntu'
   os-version: '18.04'
+  verbose: true
 
 image:
   size: '12G'

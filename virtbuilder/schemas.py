@@ -18,6 +18,7 @@ GeneralSchema = Schema(
         "os-type": Regex(r"\w+"),
         "os-name": Regex(r"\w+"),
         "os-version": Regex(r"\w+"),
+        Optional("verbose"): bool,
     }
 )
 

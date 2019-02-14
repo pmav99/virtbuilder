@@ -32,6 +32,7 @@ def test_build_image_cmd_2(load_fixture):
         [
             """virt-builder \\""",
             """  ubuntu-18.04 \\""",
+            """  --verbose \\""",
             """  --format qcow2 \\""",
             """  --output kmaster.qcow2 \\""",
             """  --hostname kmaster \\""",

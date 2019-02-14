@@ -25,10 +25,12 @@ def build_image_cmd(data, singleline=False) -> str:
     parts = [
         f"virt-builder",
         f"{general['os-name']}-{general['os-version']}",
+        f"--verbose" if general.get("verbose") else "",
         f"--format {general['format']}",
         f"--output {general['name']}.{general['format']}",
         f"--hostname {general['name']}",
     ]
+
     # build time options
     for key, value in image.items():
         # no-sync is a boolean flag and not a key-value pair
@@ -61,7 +63,7 @@ def build_image_cmd(data, singleline=False) -> str:
                 parts.append(f'--{key} "{value}"')
 
     sep = SINGLE_SEPARATOR if singleline else MULTI_SEPARATOR
-    cmd = sep.join(parts)
+    cmd = sep.join((p for p in parts if p))
     return cmd
 
 
