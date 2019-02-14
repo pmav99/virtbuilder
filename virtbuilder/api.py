@@ -4,7 +4,7 @@ import pathlib
 from pprint import pprint as pp
 
 from .schemas import FullSchema
-from .utils import load_yaml, display_cmd, execute_cmd
+from .utils import load_yaml, execute_cmd
 
 SINGLE_SEPARATOR = " "
 MULTI_SEPARATOR = " \\\n  "

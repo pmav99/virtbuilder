@@ -24,8 +24,3 @@ def execute_cmd(cmd):
     # newlines seem to confuse shlex
     cmd = [elem for elem in cmd if elem != "\n"]
     return subprocess.check_call(cmd)
-
-
-def display_cmd(cmd):
-    print(cmd)
-    input("Press ENTER to continue: ")
