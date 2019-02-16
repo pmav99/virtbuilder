@@ -10,6 +10,27 @@ def test_validate(get_fixture, fixture_filename):
     api.validate(input_file)
 
 
+@pytest.mark.parametrize("fixture", ["minimum.yml", "valid.yml"])
+def test_get_create_commands__no_stage(get_fixture, fixture):
+    input_file = get_fixture(fixture)
+    cmds = api.get_create_commands(input_file)
+    assert len(cmds) == 4
+    assert cmds[0].startswith("virt-builder")
+    assert cmds[1].startswith("virsh")
+    assert "vol-create" in cmds[1]
+    assert cmds[2].startswith("virsh")
+    assert "vol-upload" in cmds[2]
+    assert cmds[-1].startswith("virt-install")
+
+
+@pytest.mark.parametrize("fixture", ["minimum.yml", "valid.yml"])
+@pytest.mark.parametrize("stage", api.CREATE_STAGES)
+def test_get_create_commands__stage(get_fixture, fixture, stage):
+    input_file = get_fixture(fixture)
+    cmds = api.get_create_commands(input_file, stage)
+    assert len(cmds) == 1
+
+
 @pytest.mark.parametrize(
     "fixture, expected",
     [
