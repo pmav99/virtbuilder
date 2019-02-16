@@ -6,13 +6,10 @@ from .. import api
 from ..utils import execute_cmd
 
 
-_AVAILABLE_STAGES = {"image", "volume", "upload", "vm"}
-
-
 def validate_stage(stage):
-    """ Raise a ValueError if ``stage`` is not one of ``_AVAILABLE_STAGES`` """
-    if stage and stage not in _AVAILABLE_STAGES:
-        msg = f"'stage' must be one of {_AVAILABLE_STAGES}, not: {stage}"
+    """ Raise a ValueError if ``stage`` is not one of ``api.CREATE_STAGES`` """
+    if stage and stage not in api.CREATE_STAGES:
+        msg = f"'stage' must be one of {api.CREATE_STAGES}, not: {stage}"
         raise ValueError(msg)
 
 
