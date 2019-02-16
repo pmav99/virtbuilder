@@ -10,9 +10,9 @@ def test_validate(get_fixture, fixture_filename):
     api.validate(input_file)
 
 
-def test_build_image_cmd_1(load_fixture):
+def test_create_image_cmd_1(load_fixture):
     data = load_fixture("minimum.yml")
-    cmd = api.build_image_cmd(data, singleline=False)
+    cmd = api.create_image_cmd(data, singleline=False)
     assert cmd == "\n".join(
         [
             """virt-builder \\""",
@@ -25,9 +25,9 @@ def test_build_image_cmd_1(load_fixture):
     )
 
 
-def test_build_image_cmd_2(load_fixture):
+def test_create_image_cmd_2(load_fixture):
     data = load_fixture("valid.yml")
-    cmd = api.build_image_cmd(data, singleline=False)
+    cmd = api.create_image_cmd(data, singleline=False)
     assert cmd == "\n".join(
         [
             """virt-builder \\""",

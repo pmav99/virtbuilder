@@ -16,7 +16,7 @@ def validate(definition_file):
     FullSchema.validate(data)
 
 
-def build_image_cmd(data, singleline=False) -> str:
+def create_image_cmd(data, singleline=False) -> str:
     general = data["general"]
     image = data["image"]
     config = data["image"].pop("config", {})
@@ -67,7 +67,7 @@ def build_image_cmd(data, singleline=False) -> str:
     return cmd
 
 
-def build_volume_cmd(data, singleline=False):
+def create_volume_cmd(data, singleline=False):
     general = data["general"]
     image = pathlib.Path(f"{general['name']}.{general['format']}").resolve()
     image_size = data["image"]["size"]
@@ -85,7 +85,7 @@ def build_volume_cmd(data, singleline=False):
     return cmd
 
 
-def build_upload_cmd(data, singleline=False):
+def create_upload_cmd(data, singleline=False):
     general = data["general"]
     image = pathlib.Path(f"{general['name']}.{general['format']}").resolve()
     upload_image_parts = [
@@ -101,7 +101,7 @@ def build_upload_cmd(data, singleline=False):
     return cmd
 
 
-def build_vm_cmd(data, singleline=False):
+def create_vm_cmd(data, singleline=False):
     general = data["general"]
     vm = data["vm"]
     parts = [
@@ -118,31 +118,31 @@ def build_vm_cmd(data, singleline=False):
     return cmd
 
 
-BUILD_COMMAND_DISPATCHER = {
-    "image": build_image_cmd,
-    "volume": build_volume_cmd,
-    "upload": build_upload_cmd,
-    "vm": build_vm_cmd,
+CREATE_COMMAND_DISPATCHER = {
+    "image": create_image_cmd,
+    "volume": create_volume_cmd,
+    "upload": create_upload_cmd,
+    "vm": create_vm_cmd,
 }
 
 
-def build_commands(data, stage):
+def _get_create_commands(data, stage):
     if stage:
-        func = BUILD_COMMAND_DISPATCHER[stage]
+        func = CREATE_COMMAND_DISPATCHER[stage]
         cmds = [func(data)]
     else:
         cmds = [
-            build_image_cmd(data),
-            build_volume_cmd(data),
-            build_upload_cmd(data),
-            build_vm_cmd(data),
+            create_image_cmd(data),
+            create_volume_cmd(data),
+            create_upload_cmd(data),
+            create_vm_cmd(data),
         ]
     return cmds
 
 
 def get_create_commands(definition_file, stage=None):
     data = load_yaml(definition_file)
-    cmds = build_commands(data, stage=stage)
+    cmds = _get_create_commands(data, stage=stage)
     return cmds
 
 
