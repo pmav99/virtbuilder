@@ -126,6 +126,9 @@ CREATE_COMMAND_DISPATCHER = {
 }
 
 
+CREATE_STAGES = list(CREATE_COMMAND_DISPATCHER.keys())
+
+
 def _get_create_commands(data, stage):
     if stage:
         func = CREATE_COMMAND_DISPATCHER[stage]
