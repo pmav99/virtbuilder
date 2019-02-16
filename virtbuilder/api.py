@@ -101,6 +101,14 @@ def create_upload_cmd(data, singleline=False):
     return cmd
 
 
+def create_cleanup_cmd(data, singleline=False):
+    general = data["general"]
+    parts = [f"/usr/bin/rm", f"{data['general']['name']}.{data['general']['format']}"]
+    sep = SINGLE_SEPARATOR if singleline else MULTI_SEPARATOR
+    cmd = sep.join(parts)
+    return cmd
+
+
 def create_vm_cmd(data, singleline=False):
     general = data["general"]
     vm = data["vm"]
@@ -118,17 +126,6 @@ def create_vm_cmd(data, singleline=False):
     return cmd
 
 
-CREATE_COMMAND_DISPATCHER = {
-    "image": create_image_cmd,
-    "volume": create_volume_cmd,
-    "upload": create_upload_cmd,
-    "vm": create_vm_cmd,
-}
-
-
-CREATE_STAGES = list(CREATE_COMMAND_DISPATCHER.keys())
-
-
 def _get_create_commands(data, stage):
     if stage:
         func = CREATE_COMMAND_DISPATCHER[stage]
@@ -138,6 +135,7 @@ def _get_create_commands(data, stage):
             create_image_cmd(data),
             create_volume_cmd(data),
             create_upload_cmd(data),
+            create_cleanup_cmd(data, singleline=True),
             create_vm_cmd(data),
         ]
     return cmds
@@ -158,3 +156,15 @@ def get_remove_commands(definition_file):
         f"virsh --connect {uri} undefine --remove-all-storage {name}",
     ]
     return cmds
+
+
+CREATE_COMMAND_DISPATCHER = {
+    "image": create_image_cmd,
+    "volume": create_volume_cmd,
+    "upload": create_upload_cmd,
+    "cleanup": create_cleanup_cmd,
+    "vm": create_vm_cmd,
+}
+
+
+CREATE_STAGES = list(CREATE_COMMAND_DISPATCHER.keys())
