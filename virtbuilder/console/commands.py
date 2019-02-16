@@ -36,6 +36,7 @@ class CreateCommand(Command):
         {definition : The yaml file with the image configuration}
         {--stage= : The stage you want to run. Needs to be one of [image,upload,vm]}
         {--no-interactive : The commands will not be displayed before execution}
+        {--preview : Preview the commands without executing them}
     """
 
     def handle(self):
@@ -49,8 +50,9 @@ class CreateCommand(Command):
             self.line("\n")
             self.line(cmd)
             self.line("\n")
-            self.ask("Press Enter to Continue")
-            execute_cmd(cmd)
+            if not params["preview"]:
+                self.ask("Press Enter to Continue")
+                execute_cmd(cmd)
 
 
 class RemoveCommand(Command):
@@ -60,6 +62,7 @@ class RemoveCommand(Command):
     remove
         {definition : The yaml file with the image configuration}
         {--stage= : The stage you want to run. Needs to be one of [image,upload,vm]}
+        {--preview : Preview the commands without executing them}
     """
 
     def handle(self):
@@ -70,29 +73,9 @@ class RemoveCommand(Command):
             self.line("\n")
             self.line(cmd)
             self.line("\n")
-            self.ask("Press Enter to Continue")
-            execute_cmd(cmd)
-
-
-class PreviewCommand(Command):
-    """
-    Preview the commands that will be executed without running them.
-
-    preview
-        {definition : The yaml file with the image/VM configuration}
-        {--stage= : The stage you want to run. Needs to be one of [image,upload,vm]}
-    """
-
-    def handle(self):
-        params = self.get_parameters()
-        validate_stage(params["stage"])
-        api.validate(params["definition"])
-        cmds = api.get_create_commands(
-            definition_file=params["definition"], stage=params["stage"]
-        )
-        for cmd in cmds:
-            self.line("\n")
-            self.line(cmd)
+            if not params["preview"]:
+                self.ask("Press Enter to Continue")
+                execute_cmd(cmd)
 
 
 class ValidateCommand(Command):
