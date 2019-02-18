@@ -112,12 +112,13 @@ def create_cleanup_cmd(data, singleline=False):
 def create_vm_cmd(data, singleline=False):
     general = data["general"]
     vm = data["vm"]
+    os_variant = general.get("os-variant", general["os-name"] + general["os-version"])
     parts = [
         f"virt-install",
         f"--connect {general['uri']}",
         f"--import",
         f"--name {general['name']}",
-        f"--os-variant {general['os-variant']}",
+        f"--os-variant {os_variant}",
     ]
     for key, value in data["vm"].items():
         parts.append(f"--{key} {value}")
