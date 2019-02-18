@@ -53,17 +53,9 @@ class TestGeneralSchema(BaseSchemaTestCase):
         "verbose": True,
     }
 
-    mandatory_keys = [
-        "uri",
-        "pool",
-        "name",
-        "format",
-        "os-variant",
-        "os-name",
-        "os-version",
-    ]
+    mandatory_keys = ["uri", "pool", "name", "format", "os-name", "os-version"]
 
-    optional_keys = ["verbose"]
+    optional_keys = ["verbose", "os-variant"]
 
     @pytest.mark.parametrize("key", mandatory_keys)
     def test_missing_mandatory_key_raises(self, key):
@@ -316,7 +308,6 @@ class TestFullSchema(BaseSchemaTestCase):
             "pool": "kvm",
             "name": "kmaster",
             "format": "qcow2",
-            "os-variant": "linux",
             "os-name": "ubuntu",
             "os-version": "18.04",
             "verbose": True,

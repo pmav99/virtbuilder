@@ -15,7 +15,7 @@ GeneralSchema = Schema(
         "pool": Regex(r"\w+"),
         "name": Regex(r"\w+"),
         "format": And(Regex(r"\w+"), lambda s: s in ("qcow2", "raw")),
-        "os-variant": Regex(r"\w+"),
+        Optional("os-variant"): Regex(r"\w+"),
         "os-name": Regex(r"\w+"),
         "os-version": Regex(r"\w+"),
         Optional("verbose"): bool,
