@@ -117,7 +117,7 @@ def create_vm_cmd(data, singleline=False):
         f"--connect {general['uri']}",
         f"--import",
         f"--name {general['name']}",
-        f"--os-variant {general['os-type']}",
+        f"--os-variant {general['os-variant']}",
     ]
     for key, value in data["vm"].items():
         parts.append(f"--{key} {value}")

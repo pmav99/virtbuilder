@@ -5,7 +5,7 @@ general:
   pool: 'kvm'
   name: 'kmaster'
   format: 'qcow2'
-  os-type: 'linux'
+  os-variant: 'linux'
   os-name: 'ubuntu'
   os-version: '18.04'
   verbose: true
