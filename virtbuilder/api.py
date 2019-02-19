@@ -123,6 +123,7 @@ def create_vm_cmd(data, singleline=False):
         f"virt-install",
         f"--connect {general['uri']}",
         f"--import",
+        f"--noautoconsole",
         f"--name {general['name']}",
         f"--os-variant {os_variant}",
     ]
