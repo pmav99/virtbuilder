@@ -1,3 +1,4 @@
+import os.path
 import pytest
 
 from pprint import pprint as pp
@@ -63,7 +64,7 @@ def test_get_create_commands__stage(get_fixture, fixture, stage):
                 """  --update \\""",
                 """  --timezone "Europe/Athens" \\""",
                 """  --password-crypto "sha512" \\""",
-                """  --root-password "file:/home/feanor/Prog/git/virtbuilder/virtbuilder/root_password.txt" \\""",
+                f"""  --root-password "file:{os.path.dirname(os.path.dirname(__file__))}/root_password.txt" \\""",
                 """  --firstboot-command "dpkg-reconfigure openssh-server" \\""",
                 """  --ssh-inject "root:file:/home/feanor/.ssh/id_rsa.pub" \\""",
                 """  --touch "/etc/apt/apt.conf.d/01norecommend" \\""",

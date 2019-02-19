@@ -28,7 +28,7 @@ repos:
       - id: 'name-tests-test'
       - id: 'trailing-whitespace'
 
-  - repo: 'git@github.com:Yelp/detect-secrets'
+  - repo: 'https://github.com/Yelp/detect-secrets'
     rev: 'v0.11.4'
     hooks:
       - id: 'detect-secrets'
