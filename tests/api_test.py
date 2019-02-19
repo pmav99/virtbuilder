@@ -54,7 +54,7 @@ def test_get_create_commands__stage(get_fixture, fixture, stage):
                 """  --verbose \\""",
                 """  --format qcow2 \\""",
                 """  --output kmaster.qcow2 \\""",
-                """  --hostname kmaster \\""",
+                """  --hostname kmaster.test.local \\""",
                 """  --size "12G" \\""",
                 """  --arch "x86_64" \\""",
                 """  --no-sync \\""",

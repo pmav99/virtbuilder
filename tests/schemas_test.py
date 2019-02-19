@@ -46,8 +46,9 @@ class TestGeneralSchema(BaseSchemaTestCase):
         "uri": "qemu:///system",
         "pool": "kvm",
         "name": "kmaster",
+        "domain": "foo.local",
         "format": "qcow2",
-        "os-variant": "linux",
+        "os-variant": "ubuntu18.04",
         "os-name": "ubuntu",
         "os-version": "18.04",
         "verbose": True,
@@ -55,7 +56,7 @@ class TestGeneralSchema(BaseSchemaTestCase):
 
     mandatory_keys = ["uri", "pool", "name", "format", "os-name", "os-version"]
 
-    optional_keys = ["verbose", "os-variant"]
+    optional_keys = ["domain", "os-variant", "verbose"]
 
     @pytest.mark.parametrize("key", mandatory_keys)
     def test_missing_mandatory_key_raises(self, key):

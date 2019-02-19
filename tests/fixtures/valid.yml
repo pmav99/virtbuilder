@@ -4,6 +4,7 @@ general:
   uri: 'qemu:///system'
   pool: 'kvm'
   name: 'kmaster'
+  domain: 'test.local'
   format: 'qcow2'
   os-variant: 'linux'
   os-name: 'ubuntu'

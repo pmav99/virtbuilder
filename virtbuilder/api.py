@@ -22,13 +22,19 @@ def create_image_cmd(data, singleline=False) -> str:
     config = data["image"].pop("config", {})
     provision = config.pop("provision", [])
 
+    # Append domain to hostname if it is available
+    hostname = general["name"]
+    domain = general.get("domain", "")
+    if domain:
+        hostname += "." + domain
+
     parts = [
         f"virt-builder",
         f"{general['os-name']}-{general['os-version']}",
         f"--verbose" if general.get("verbose") else "",
         f"--format {general['format']}",
         f"--output {general['name']}.{general['format']}",
-        f"--hostname {general['name']}",
+        f"--hostname {hostname}",
     ]
 
     # build time options
