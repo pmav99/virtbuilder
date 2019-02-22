@@ -75,6 +75,25 @@ class RemoveCommand(Command):
                 execute_cmd(cmd)
 
 
+class MultiCommand(Command):
+    """
+    Execute <c1>command</> on multiple <c1>definitions</>.
+
+    multi
+        {command : The action we want to perform. Needs to be one of {"create", "remove}.}
+        {definitions* : The definition files for the VMs}
+    """
+
+    def handle(self):
+        params = self.get_parameters()
+        command = params["command"]
+        if command not in {"create", "remove"}:
+            msg = "command needs to be in {'create', 'remove'}, not: {command}"
+            raise ValueError(msg)
+        for definition in params["definitions"]:
+            self.call(command, definition)
+
+
 class ValidateCommand(Command):
     """
     Validate the definition file.
