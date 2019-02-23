@@ -1,0 +1,49 @@
+---
+
+general:
+  uri: 'qemu:///system'
+  pool: 'test-pool'
+  name: 'test-node1'
+  format: 'qcow2'
+  os-name: 'ubuntu'
+  os-version: '18.04'
+  verbose: false
+
+image:
+  size: '6G'
+  arch: 'x86_64'
+  no-sync: true
+  memsize: 2000
+  smp: 2
+  config:
+    #update: true
+    selinux-relabel: false
+    timezone: 'Europe/Athens'
+    password-crypto: 'sha512'
+    root-password: 'file:${PWD}/data/root_password.txt'
+    provision:
+      # virt-builder ubuntu-18.04 --notes
+      - firstboot-command: 'dpkg-reconfigure openssh-server'
+      # Fix networking: https://bugzilla.redhat.com/show_bug.cgi?id=1677870
+      - copy-in: '${PWD}/data/01-netcfg.yaml:/etc/netplan/'
+      # Fix machine-id: https://bugzilla.redhat.com/show_bug.cgi?id=1677864
+      - run-command: 'rm /etc/machine-id'
+      - run-command: 'systemd-machine-id-setup'
+      # apt: Set --no-install-recommends --no-install-suggests on by default
+      - touch: '/etc/apt/apt.conf.d/01norecommend'
+      - append-line: '/etc/apt/apt.conf.d/01norecommend:APT::Install-Recommends "0";'
+      - append-line: '/etc/apt/apt.conf.d/01norecommend:APT::Install-Suggests "0";'
+      # Here comes the real provisioning
+      - ssh-inject: 'root:file:${HOME}/.ssh/id_rsa.pub'
+      - install:
+          - 'python3-minimal'     # Needed for ansible
+          - 'qemu-guest-agent'    # Gives more abilities to the virsh command
+          - 'ksmtuned'            # Allows shared RAM usage among the VMs
+
+vm:
+  ram: 1024
+  vcpus: 2
+  #graphics: 'None'
+  console: 'pty,target_type=serial'
+  disk: 'vol=test-pool/test-node1,bus=virtio,cache=none,io=native'
+  network: 'bridge=virbr-test,mac=52:54:00:10:10:11'

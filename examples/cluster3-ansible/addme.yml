@@ -1,0 +1,9 @@
+---
+
+- name: 'Setup normal user'
+  hosts: 'all'
+  vars:
+    addme_username: 'pmav99'
+    addme_directory: 'zsh_remote'
+  roles:
+    - role: 'pmav99.addme'

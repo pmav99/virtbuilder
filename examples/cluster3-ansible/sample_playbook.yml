@@ -1,0 +1,9 @@
+---
+
+- hosts: '127.0.0.1'
+  connection: 'local'
+  vars:
+    addme_username: 'pmav99'
+    addme_directory: 'zsh_remote'
+  roles:
+    - role: 'pmav99.addme'

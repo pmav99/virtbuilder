@@ -1,0 +1,9 @@
+<pool type='dir'>
+  <name>test-pool</name>
+  <target>
+    <path>/home/feanor/vms/test-pool</path>
+    <permissions>
+      <mode>0755</mode>
+    </permissions>
+  </target>
+</pool>
