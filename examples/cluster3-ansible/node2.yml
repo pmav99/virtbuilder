@@ -45,5 +45,4 @@ vm:
   vcpus: 2
   #graphics: 'None'
   console: 'pty,target_type=serial'
-  disk: 'vol=test-pool/test-node2,bus=virtio,cache=none,io=native'
   network: 'bridge=virbr-test,mac=52:54:00:10:10:12'

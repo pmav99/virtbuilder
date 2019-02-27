@@ -45,5 +45,4 @@ vm:
   graphics: 'None'
   console: 'pty,target_type=serial'
   extra-args: 'console=ttyS0'
-  disk: 'vol=kvm/kmaster,bus=virtio,cache=none,io=native'
   network: 'bridge=virbr2,mac=52:54:00:10:00:10'

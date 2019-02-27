@@ -127,6 +127,7 @@ def create_vm_cmd(data, singleline=False):
         f"--noautoconsole",
         f"--name {general['name']}",
         f"--os-variant {os_variant}",
+        f"--disk vol={general['pool']}/{general['name']},bus=virtio,cache=none,io=native",
     ]
     for key, value in data["vm"].items():
         parts.append(f"--{key} {value}")
