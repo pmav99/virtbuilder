@@ -1,0 +1,24 @@
+---
+
+general:
+  uri: 'qemu:///system'
+  pool: 'default'
+  name: 'test-ub1804'
+  domain: 'test.local'
+  format: 'qcow2'
+  os-name: 'ubuntu'
+  os-version: '18.04'
+
+image:
+  size: '16G'
+  config:
+    root-password: 'file:$PWD/root-password.txt'
+    provision:
+      - firstboot-command: 'dpkg-reconfigure openssh-server'
+      - ssh-inject: 'root:file:$HOME/.ssh/id_rsa.pub'
+      - run-command: 'sed -i "s/ens2/enp1s0/g" /etc/netplan/01-netcfg.yaml'
+
+vm:
+  ram: 4000
+  vcpus: 7
+  network: 'network=default'
