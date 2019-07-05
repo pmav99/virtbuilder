@@ -110,7 +110,7 @@ def create_upload_cmd(data, singleline=False):
 
 def create_cleanup_cmd(data, singleline=False):
     general = data["general"]
-    parts = [f"/usr/bin/rm", f"{data['general']['name']}.{data['general']['format']}"]
+    parts = [f"/bin/rm", f"{data['general']['name']}.{data['general']['format']}"]
     sep = SINGLE_SEPARATOR if singleline else MULTI_SEPARATOR
     cmd = sep.join(parts)
     return cmd
